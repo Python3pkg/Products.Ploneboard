@@ -59,7 +59,7 @@ if context.portal_type == 'PloneboardForum':
         pathlist = item.getPath().split('/')
         conversationid = pathlist[pathlist.index(forumid)+1]
         conversation_ids.append(conversationid)
-        if conversations.has_key(conversationid):
+        if conversationid in conversations:
             conversations[conversationid].append(item)
         else:
             conversations[conversationid] = [item]

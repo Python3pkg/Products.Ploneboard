@@ -149,7 +149,7 @@ class Ploneboard(BrowserDefaultMixin, ATBTreeFolder):
         else:
             return None
 
-    def __nonzero__(self):
+    def __bool__(self):
         return 1
 
 registerType(Ploneboard, PROJECTNAME)

@@ -86,17 +86,17 @@ class CommentView(CommentViewableView):
         try:
             return _(
                 "label_quote",
-                u"Previously ${author} wrote: ${quote}",
-                {"author": unicode(self.author(), 'utf-8'),
-                 "quote": unicode("<blockquote>%s</blockquote></br>" %
+                "Previously ${author} wrote: ${quote}",
+                {"author": str(self.author(), 'utf-8'),
+                 "quote": str("<blockquote>%s</blockquote></br>" %
                                   (self.context.getText()), 'utf-8')
                  }
             )
         except TypeError:
             return _(
-                "label_quote", u"Previously ${author} wrote: ${quote}",
+                "label_quote", "Previously ${author} wrote: ${quote}",
                 {"author": self.author(),
-                 "quote": unicode("<blockquote>%s</blockquote></br>" %
+                 "quote": str("<blockquote>%s</blockquote></br>" %
                                    (self.context.getText()), 'utf-8')
                 }
             )
@@ -179,7 +179,7 @@ class RecentConversationsView(CommentViewableView):
             path='/'.join(
                 self.context.getPhysicalPath())
                 )[offset:offset + limit]
-        return filter(None, [self._buildDict(r.getObject()) for r in results])
+        return [_f for _f in [self._buildDict(r.getObject()) for r in results] if _f]
 
     def _buildDict(self, ob):
         forum = ob.getForum()
@@ -299,11 +299,11 @@ class DeleteCommentView(Five.BrowserView):
         if len(conversation.getComments()) == 1:
             forum = conversation.getForum()
             conversation.delete()
-            msg = _(u'Conversation deleted')
+            msg = _('Conversation deleted')
             plone_utils.addPortalMessage(msg)
             redirect(forum.absolute_url())
         else:
             comment.delete()
-            msg = _(u'Comment deleted')
+            msg = _('Comment deleted')
             plone_utils.addPortalMessage(msg)
             redirect(conversation.absolute_url())

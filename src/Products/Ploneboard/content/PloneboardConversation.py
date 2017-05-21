@@ -280,7 +280,7 @@ class PloneboardConversation(BrowserDefaultMixin, BaseBTreeFolder):
         # XXX Backwards compatability with old version
         return getattr(self, '_creator', None) or BaseBTreeFolder.Creator(self)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return 1
 
     # No setting of default page - makes no sense

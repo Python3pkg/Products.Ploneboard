@@ -29,9 +29,9 @@ def initialize(context):
 
     # Assign an own permission to all content types
     # Heavily based on Bricolite's code from Ben Saller
-    import permissions as perms
+    from . import permissions as perms
 
-    allTypes = zip(content_types, constructors)
+    allTypes = list(zip(content_types, constructors))
     for atype, constructor in allTypes:
         kind = "%s: %s" % (PROJECTNAME, atype.archetype_name)
         utils.ContentInit(
@@ -45,11 +45,11 @@ def initialize(context):
 
               
     from AccessControl import allow_class      
-    from batch import Batch
+    from .batch import Batch
     allow_class(Batch)
     this_module.Batch = Batch
 
 # Avoid breaking old Ploneboard instances when moving content types modules
 # from Ploneboard/types/ to Ploneboard/content/
-import content
+from . import content
 sys.modules['Products.Ploneboard.types'] = content

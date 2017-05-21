@@ -3,7 +3,7 @@
 #
 
 import unittest
-import PloneboardTestCase
+from . import PloneboardTestCase
 from Products.Ploneboard.transforms.url_to_hyperlink import URLToHyperlink
 
 class MockTransformData:

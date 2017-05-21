@@ -23,10 +23,10 @@ for m in modules:
     try:
         ns = __import__(m, g, g, None)
         transforms.append(ns.register())
-    except ImportError, e:
-        print "Problem importing module %s : %s" % (m, e)
-    except MissingBinary, e:
-        print e
+    except ImportError as e:
+        print("Problem importing module %s : %s" % (m, e))
+    except MissingBinary as e:
+        print(e)
     except Exception:
         import traceback
         traceback.print_exc()

@@ -22,7 +22,7 @@ class Migration(object):
     def migrate(self):
         """Run migration on site object passed to __init__.
         """
-        print >> self.out, u"Migrating Ploneboard 0.1b1 -> 1.0b"
+        print("Migrating Ploneboard 0.1b1 -> 1.0b", file=self.out)
         self.findAndCatalogAndClean()
 
     def findAndCatalogAndClean(self):
@@ -37,11 +37,11 @@ class Migration(object):
         for pb in [brain.getObject() for brain in pb_brains]:
             if pb.hasObject('ploneboard_catalog'):
                 pb._delObject('ploneboard_catalog')
-                msg = u"Removed stale 'ploneboard_catalog' from Ploneboard at %s."
-                print >> self.out, msg % '/'.join(pb.getPhysicalPath())
+                msg = "Removed stale 'ploneboard_catalog' from Ploneboard at %s."
+                print(msg % '/'.join(pb.getPhysicalPath()), file=self.out)
             else:
-                msg = u"Checked for stale 'ploneboard_catalog' object on %s, but not present."
-                print >> self.out, msg % '/'.join(pb.getPhysicalPath())
+                msg = "Checked for stale 'ploneboard_catalog' object on %s, but not present."
+                print(msg % '/'.join(pb.getPhysicalPath()), file=self.out)
             # Directly access the stored forums.  The Ploneboard API won't work here
             for forum in pb.objectValues('PloneboardForum'):
                 forum.reindexObject()
@@ -55,14 +55,14 @@ class Migration(object):
                         comm.reindexObject()
                         comm_count += 1
         msg = "Indexed and cleaned %s forums, %s conversations, and %s comments."
-        print >> self.out, msg % (forum_count, conv_count, comm_count)
+        print(msg % (forum_count, conv_count, comm_count), file=self.out)
 
     def _cleanIndex(self, ob):
         if getattr(aq_base(ob), '_index', None) is not None:
             delattr(ob, '_index')
-            msg = u"Removed stale '_index' from %s at %s."
-            print >> self.out, msg % (ob.meta_type, '/'.join(ob.getPhysicalPath()))
+            msg = "Removed stale '_index' from %s at %s."
+            print(msg % (ob.meta_type, '/'.join(ob.getPhysicalPath())), file=self.out)
         else:
-            msg = u"Checked for stale '_index' attribute on '%s' at %s, but not present."
-            print >> self.out, msg % (ob.meta_type, '/'.join(ob.getPhysicalPath()))
+            msg = "Checked for stale '_index' attribute on '%s' at %s, but not present."
+            print(msg % (ob.meta_type, '/'.join(ob.getPhysicalPath())), file=self.out)
 

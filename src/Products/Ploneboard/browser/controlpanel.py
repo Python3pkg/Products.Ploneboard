@@ -14,26 +14,26 @@ from Products.Ploneboard.utils import PloneboardMessageFactory as _
 
 class ITransformSchema(Interface):
     enabled_transforms = Tuple(
-            title=_(u"label_transforms",
-                default=u"Transforms"),
-            description=_(u"help_transforms",
-                default=u"Select the text transformations that should be "
-                        u"used for comments posted in Ploneboard "
-                        u"conversations. Text transformations alter the "
-                        u"text entered by the user, either to remove "
-                        u"potentially malicious HTML tags, or to add "
-                        u"additional functionality, such as making links "
-                        u"clickable."),
+            title=_("label_transforms",
+                default="Transforms"),
+            description=_("help_transforms",
+                default="Select the text transformations that should be "
+                        "used for comments posted in Ploneboard "
+                        "conversations. Text transformations alter the "
+                        "text entered by the user, either to remove "
+                        "potentially malicious HTML tags, or to add "
+                        "additional functionality, such as making links "
+                        "clickable."),
             required=True,
             missing_value=set(),
             value_type=Choice(
                 vocabulary="Products.Ploneboard.AvailableTransforms"))
 
     enable_anon_name = Bool(
-            title=_(u"label_anon_nick",
-                default=u"Anonymous name"),
-            description=_(u"help_anon_nick",
-                default=u"If selected, anonymous users can insert a name in their comments."),
+            title=_("label_anon_nick",
+                default="Anonymous name"),
+            description=_("help_anon_nick",
+                default="If selected, anonymous users can insert a name in their comments."),
             required=False)
 
 
@@ -66,10 +66,10 @@ class ControlPanel(ControlPanelForm):
     form_fields = FormFields(ITransformSchema)
     form_fields["enabled_transforms"].custom_widget = MultiCheckBoxVocabularyWidget
 
-    label = _(u"ploneboard_configuration",
-            default=u"Ploneboard configuration")
-    description = _(u"description_ploneboard_config",
-            default=u"Here you can configure site settings for Ploneboard.")
+    label = _("ploneboard_configuration",
+            default="Ploneboard configuration")
+    description = _("description_ploneboard_config",
+            default="Here you can configure site settings for Ploneboard.")
 
-    form_name = _(u"ploneboard_transform_panel",
-            default=u"Text transformations")
+    form_name = _("ploneboard_transform_panel",
+            default="Text transformations")

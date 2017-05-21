@@ -5,7 +5,7 @@
 import unittest
 from zope.interface.verify import verifyClass
 
-import PloneboardTestCase
+from . import PloneboardTestCase
 from Products.Ploneboard.interfaces import IComment
 from Products.Ploneboard.content.PloneboardComment import PloneboardComment
 from Products.Ploneboard.config import HAS_SIMPLEATTACHMENT

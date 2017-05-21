@@ -25,7 +25,7 @@ class ForumView(Five.BrowserView):
     def last_login(self):
         member = self.mt.getAuthenticatedMember()
         last_login = member.getProperty('last_login_time', None)
-        if isinstance(last_login, basestring):
+        if isinstance(last_login, str):
             last_login = DateTime(last_login)
         return last_login
 

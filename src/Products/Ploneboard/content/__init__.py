@@ -1,6 +1,6 @@
-import Ploneboard
-import PloneboardForum
-import PloneboardConversation
+from . import Ploneboard
+from . import PloneboardForum
+from . import PloneboardConversation
 # import PloneboardComment
 
 from zope import interface

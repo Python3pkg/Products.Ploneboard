@@ -19,22 +19,22 @@ class IRecentConversationsPortlet(IPortletDataProvider):
     """A portlet which shows recent Ploneboard conversations.
     """
 
-    title = schema.TextLine(title=_(u"title_title",
-                                default=u"Portlet title"),
+    title = schema.TextLine(title=_("title_title",
+                                default="Portlet title"),
                         required=True,
-                        default=u"Recent messages")
+                        default="Recent messages")
 
-    count = schema.Int(title=_(u"title_count",
-                                default=u"Number of items to display"),
-                       description=_(u"help_count",
-                                default=u"How many items to list."),
+    count = schema.Int(title=_("title_count",
+                                default="Number of items to display"),
+                       description=_("help_count",
+                                default="How many items to list."),
                        required=True,
                        default=5)
 
 
-    forum = schema.Choice(title=_(u"title_forum",
-                                 default = u"Limit to specific board or forum"),
-                          description=_(u"help_forum", default=u"Limit recent conversations to a specific forum"),
+    forum = schema.Choice(title=_("title_forum",
+                                 default = "Limit to specific board or forum"),
+                          description=_("help_forum", default="Limit recent conversations to a specific forum"),
                           vocabulary="ploneboard.BoardsAndForumVocabulary",
                           required=False,
                           default="")                    
@@ -43,7 +43,7 @@ class IRecentConversationsPortlet(IPortletDataProvider):
 class Assignment(base.Assignment):
     implements(IRecentConversationsPortlet)
 
-    title = u"Recent messages"
+    title = "Recent messages"
     count = 5
     forum = ""
 
@@ -128,10 +128,10 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     form_fields = Fields(IRecentConversationsPortlet)
-    label = _(u"label_add_portlet",
-                default=u"Add recent conversations portlet.")
-    description = _(u"help_add_portlet",
-            default=u"This portlet shows conversations with recent comments.")
+    label = _("label_add_portlet",
+                default="Add recent conversations portlet.")
+    description = _("help_add_portlet",
+            default="This portlet shows conversations with recent comments.")
 
     def create(self, data):
         return Assignment(title=data.get("title"), count=data.get("count"))
@@ -139,10 +139,10 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
     form_fields = Fields(IRecentConversationsPortlet)
-    label = _(u"label_add_portlet",
-                default=u"Add recent conversations portlet.")
-    description = _(u"help_add_portlet",
-            default=u"This portlet shows conversations with recent comments.")
+    label = _("label_add_portlet",
+                default="Add recent conversations portlet.")
+    description = _("help_add_portlet",
+            default="This portlet shows conversations with recent comments.")
 
 def BoardsAndForumVocabularyFactory(context):
     """Vocabulary factory for supplying a vocabulary of users in the site for the injected responsible person field"""

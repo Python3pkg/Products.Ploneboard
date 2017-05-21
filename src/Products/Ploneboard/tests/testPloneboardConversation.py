@@ -5,7 +5,7 @@
 import transaction
 import unittest
 from zope.interface.verify import verifyClass, verifyObject
-import PloneboardTestCase
+from . import PloneboardTestCase
 
 from Products.CMFPlone.utils import _createObjectByType
 from Products.Ploneboard.interfaces import IConversation

@@ -41,11 +41,11 @@ from zope.interface import implementer
 _ = utils.PloneboardMessageFactory
 
 AttachmentSizes = IntDisplayList((
-        (10, _(u'10 kilobyte')),
-        (100, _(u'100 kilobyte')),
-        (1000, _(u'1 megabyte')),
-        (10000, _(u'10 megabyte')),
-        (-1, _(u'unlimited')),
+        (10, _('10 kilobyte')),
+        (100, _('100 kilobyte')),
+        (1000, _('1 megabyte')),
+        (10000, _('10 megabyte')),
+        (-1, _('unlimited')),
    ))
 
 schema = BaseBTreeFolderSchema + Schema((
@@ -102,9 +102,9 @@ schema = BaseBTreeFolderSchema + Schema((
     BooleanField('allowEditComment',
         default=False,
         languageIndependent=0,
-        widget=BooleanWidget(label=u'Allow users to edit their comments',
-                             description=u'If selected, this will give users the ability to '
-                                         u'edit their own comments.',
+        widget=BooleanWidget(label='Allow users to edit their comments',
+                             description='If selected, this will give users the ability to '
+                                         'edit their own comments.',
                              label_msgid='label_allow_edit_comment',
                              description_msgid='help_allow_edit_comment',
                              # Only show when no conversations exist
@@ -116,10 +116,10 @@ schema = BaseBTreeFolderSchema + Schema((
         default=False,
         widget=BooleanWidget(
             description=_(
-                u'help_showcaptcha',
-                default=u'Select if show or not captcha for anonymous (if '
-                        u'recaptcha installed and configured).'),
-            label=_(u'label_show_captcha', default=u"Show Captcha"),
+                'help_showcaptcha',
+                default='Select if show or not captcha for anonymous (if '
+                        'recaptcha installed and configured).'),
+            label=_('label_show_captcha', default="Show Captcha"),
         )),
 ))
 utils.finalizeSchema(schema)
@@ -190,7 +190,7 @@ class PloneboardForum(BaseBTreeFolder):
         # XXX: There is some permission problem with AT write_permission
         # and using **kwargs in the _createObjectByType statement.
         conv.setTitle(title)
-        for fieldname, value in kwargs.items():
+        for fieldname, value in list(kwargs.items()):
             conv.getField(fieldname).getMutator(conv)(value)
 
         if creator is not None:
@@ -374,7 +374,7 @@ class PloneboardForum(BaseBTreeFolder):
         """ move another conversation """
         CopyContainer.manage_pasteObjects(self, cp)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return 1
 
 

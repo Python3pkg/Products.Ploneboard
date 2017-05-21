@@ -127,9 +127,9 @@ class Batch(PloneBatch):
         #  nextlist is 7 8 in the example above
         self.navlist = self.prevlist = self.nextlist = []
         if self.pagerange and self.numpages >= 1:
-            self.navlist  = range(self.pagerangestart, self.pagerangeend)
-            self.prevlist = range(self.pagerangestart, self.pagenumber)
-            self.nextlist = range(self.pagenumber + 1, self.pagerangeend)
+            self.navlist  = list(range(self.pagerangestart, self.pagerangeend))
+            self.prevlist = list(range(self.pagerangestart, self.pagenumber))
+            self.nextlist = list(range(self.pagenumber + 1, self.pagerangeend))
 
         # QuantumLeap - faster navigation for big result sets
         self.quantumleap = quantumleap
@@ -151,7 +151,7 @@ class Batch(PloneBatch):
     def __getitem__(self, index):
         """ Pull an item out of the partial sequence that is this batch """
         if (index < 0 and index + self.end < self.first) or index >= self.length:
-            raise IndexError, index
+            raise IndexError(index)
         sequence = getattr(self, '_partial_sequence', None)
         if sequence is None:
             self._partial_sequence = sequence = self._method(self.length, self.start-1)

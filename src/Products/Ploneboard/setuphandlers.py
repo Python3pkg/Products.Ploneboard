@@ -72,11 +72,11 @@ def lotsofposts(context):
             conv = forum.addConversation(mg.generate_sentence(), mg.generate_paragraph())
             i+=1
             if debug:
-                print "Creating conversation %s of %s in %s in %.5fs" % (i, count, forum.getId(), time()-start)
+                print("Creating conversation %s of %s in %s in %.5fs" % (i, count, forum.getId(), time()-start))
             if i % 1000 == 0:
                 transaction.get().savepoint(optimistic=True)
                 if debug:
-                    print "\nSAVEPOINT\n"
+                    print("\nSAVEPOINT\n")
             # XXX add arbitrary number of comments, which all count towards count
             for j in range(0,int(betavariate(1, 5) * max(300,(count/10)))):
                 if i < count:
@@ -84,11 +84,11 @@ def lotsofposts(context):
                     conv.addComment(mg.generate_sentence(), mg.generate_paragraph())
                     i+=1
                     if debug:
-                        print "Creating comment      %s of %s in %s in %.5fs" % (i, count, forum.getId(), time()-start)
+                        print("Creating comment      %s of %s in %s in %.5fs" % (i, count, forum.getId(), time()-start))
                     if i % 1000 == 0:
                         transaction.get().savepoint(optimistic=True)
                         if debug:
-                            print "\nSAVEPOINT\n"
+                            print("\nSAVEPOINT\n")
                 else:
                     continue
 

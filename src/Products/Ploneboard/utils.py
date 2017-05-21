@@ -5,7 +5,7 @@ from Products.CMFCore.utils import getToolByName
 from ZODB.PersistentMapping import PersistentMapping
 from zope.i18nmessageid import MessageFactory
 
-import config
+from . import config
 
 
 def importModuleFromName(module_name):
@@ -15,7 +15,7 @@ def importModuleFromName(module_name):
     try:
         for sub in module_name.split('.')[1:]:
             m = getattr(m, sub)
-    except AttributeError, e:
+    except AttributeError as e:
         raise ImportError(str(e))
     return m
 
@@ -107,39 +107,39 @@ InitializeClass(TransformDataProvider)
 
 def finalizeSchema(schema):
     # Categorization
-    if schema.has_key('subject'):
+    if 'subject' in schema:
         schema.changeSchemataForField('subject', 'categorization')
-    if schema.has_key('relatedItems'):
+    if 'relatedItems' in schema:
         schema.changeSchemataForField('relatedItems', 'categorization')
-    if schema.has_key('location'):
+    if 'location' in schema:
         schema.changeSchemataForField('location', 'categorization')
-    if schema.has_key('language'):
+    if 'language' in schema:
         schema.changeSchemataForField('language', 'categorization')
 
     # Dates
-    if schema.has_key('effectiveDate'):
+    if 'effectiveDate' in schema:
         schema.changeSchemataForField('effectiveDate', 'dates')
-    if schema.has_key('expirationDate'):
+    if 'expirationDate' in schema:
         schema.changeSchemataForField('expirationDate', 'dates')
-    if schema.has_key('creation_date'):
+    if 'creation_date' in schema:
         schema.changeSchemataForField('creation_date', 'dates')
-    if schema.has_key('modification_date'):
+    if 'modification_date' in schema:
         schema.changeSchemataForField('modification_date', 'dates')
 
     # Ownership
-    if schema.has_key('creators'):
+    if 'creators' in schema:
         schema.changeSchemataForField('creators', 'ownership')
-    if schema.has_key('contributors'):
+    if 'contributors' in schema:
         schema.changeSchemataForField('contributors', 'ownership')
-    if schema.has_key('rights'):
+    if 'rights' in schema:
         schema.changeSchemataForField('rights', 'ownership')
 
     # Settings
-    if schema.has_key('allowDiscussion'):
+    if 'allowDiscussion' in schema:
         schema.changeSchemataForField('allowDiscussion', 'settings')
-    if schema.has_key('excludeFromNav'):
+    if 'excludeFromNav' in schema:
         schema.changeSchemataForField('excludeFromNav', 'settings')
-    if schema.has_key('nextPreviousEnabled'):
+    if 'nextPreviousEnabled' in schema:
         schema.changeSchemataForField('nextPreviousEnabled', 'settings')
 
 # Use PloneboardMessageFactory for translations in Python

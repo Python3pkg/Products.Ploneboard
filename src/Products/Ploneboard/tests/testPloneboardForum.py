@@ -6,7 +6,7 @@ import unittest
 from zExceptions import Unauthorized
 from zope.interface.verify import verifyClass, verifyObject
 
-import PloneboardTestCase
+from . import PloneboardTestCase
 from Products.Ploneboard.interfaces import IForum
 from Products.Ploneboard.content.PloneboardForum import PloneboardForum
 

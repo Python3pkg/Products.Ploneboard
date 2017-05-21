@@ -9,6 +9,7 @@ from Products.Ploneboard.interfaces import IConversation
 from zope.i18n import translate
 
 import time
+import collections
 
 
 class defer(object):
@@ -40,7 +41,7 @@ def toPloneboardTime(context, request, time_=None):
     if not time_:
         return 'Unknown date'
 
-    if callable(time_):
+    if isinstance(time_, collections.Callable):
         time_ = time_()
 
     try:
@@ -54,7 +55,7 @@ def toPloneboardTime(context, request, time_=None):
 
         translated_date_elements = {
             'year': year,
-            'month': unicode(
+            'month': str(
                 defer(
                     translate,
                     _locales(ts.month_msgid(month)),
@@ -62,7 +63,7 @@ def toPloneboardTime(context, request, time_=None):
                 )
             ),
             'day': day,
-            'wday': unicode(
+            'wday': str(
                 defer(
                     translate,
                     _locales(ts.day_msgid((wday + 1) % 7)),
@@ -85,7 +86,7 @@ def toPloneboardTime(context, request, time_=None):
                 _plone(
                     'old_date_format: ${year} ${month} ${day} '
                     '${hours}:${minutes}',
-                    default=unicode(
+                    default=str(
                         time_.strftime(old_format_en).decode('utf-8')
                     ),
                     mapping=translated_date_elements

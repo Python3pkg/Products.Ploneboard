@@ -52,7 +52,7 @@ class PloneboardTool(UniqueObject, Folder, ActionProviderBase):
         if self.transforms[name]['wasAdded']:
             try:
                 tr_tool._delObject(name)
-            except AttributeError, e:
+            except AttributeError as e:
                 pass
         del self.transforms[name]
 
@@ -76,7 +76,7 @@ class PloneboardTool(UniqueObject, Folder, ActionProviderBase):
     security.declareProtected(ManagePortal, 'getTransforms')
     def getTransforms(self):
         """Returns list of transform names."""
-        return self.transforms.keys()
+        return list(self.transforms.keys())
 
     security.declareProtected(ManagePortal, 'getTransformFriendlyName')
     def getTransformFriendlyName(self, name):
@@ -86,7 +86,7 @@ class PloneboardTool(UniqueObject, Folder, ActionProviderBase):
     security.declareProtected(View, 'getEnabledTransforms')
     def getEnabledTransforms(self):
         """Returns list of names for enabled transforms"""
-        return [name for name in self.transforms.keys() if self.transforms[name]['enabled']]
+        return [name for name in list(self.transforms.keys()) if self.transforms[name]['enabled']]
 
     security.declareProtected(View, 'performCommentTransform')
     def performCommentTransform(self, orig, **kwargs):
@@ -126,7 +126,7 @@ class PloneboardTool(UniqueObject, Folder, ActionProviderBase):
             hassession = sdm.hasSessionData()
 
             for file in files:
-                if isinstance(file, basestring) and hassession:
+                if isinstance(file, str) and hassession:
                     # Look it up from session
                     oldfile = request.SESSION.get(file, None)
                     if oldfile is not None:
@@ -166,7 +166,7 @@ class PloneboardTool(UniqueObject, Folder, ActionProviderBase):
                 old_filelist = request.SESSION.get('ploneboard_uploads', None)
                 if old_filelist is not None:
                     for file in old_filelist:
-                        if request.SESSION.has_key(file):
+                        if file in request.SESSION:
                             del request.SESSION[file]
                     del request.SESSION['ploneboard_uploads']
 

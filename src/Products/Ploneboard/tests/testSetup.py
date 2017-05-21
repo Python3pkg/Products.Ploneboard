@@ -70,7 +70,7 @@ class TestSetup(PloneboardTestCase.PloneboardTestCase):
 
     def testPortalFactorySetup(self):
         portal_factory = getToolByName(self.portal, 'portal_factory')
-        factoryTypes = portal_factory.getFactoryTypes().keys()
+        factoryTypes = list(portal_factory.getFactoryTypes().keys())
         for t in ['Ploneboard', 'PloneboardComment', 'PloneboardConversation', 'PloneboardForum']:
             self.failUnless(t in factoryTypes)
 

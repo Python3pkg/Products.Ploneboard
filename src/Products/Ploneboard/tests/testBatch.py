@@ -32,7 +32,7 @@ class TestBatch(PloneboardTestCase.PloneboardTestCase):
     def testEmptyBatch(self):
         b = self.batch()
         self.assertEqual(len(b), 0)
-        self.assertEqual(b.next, None)
+        self.assertEqual(b.__next__, None)
         self.assertEqual(b.previous, None)
 
     def testLessThanOnePage(self):
@@ -42,7 +42,7 @@ class TestBatch(PloneboardTestCase.PloneboardTestCase):
         self.assertEqual(len(b), 3)
         for i in range(3):
             self.assertEqual(items[i].Title(), 'Title %02s' % i)
-        self.assertEqual(b.next, None)
+        self.assertEqual(b.__next__, None)
         self.assertEqual(b.previous, None)
         
     def testExactlyOnePage(self):
@@ -52,7 +52,7 @@ class TestBatch(PloneboardTestCase.PloneboardTestCase):
         self.assertEqual(len(b), 5)
         for i in range(5):
             self.assertEqual(items[i].Title(), 'Title %02s' % i)
-        self.assertEqual(b.next, None)
+        self.assertEqual(b.__next__, None)
         self.assertEqual(b.previous, None)
         
     def testOnePagePlusOrphan(self):
@@ -62,7 +62,7 @@ class TestBatch(PloneboardTestCase.PloneboardTestCase):
         self.assertEqual(len(b), 6)
         for i in range(6):
             self.assertEqual(items[i].Title(), 'Title %02s' % i)
-        self.assertEqual(b.next, None)
+        self.assertEqual(b.__next__, None)
         self.assertEqual(b.previous, None)
         
     # note: when testing more than one page, we don't test for the 
@@ -76,15 +76,15 @@ class TestBatch(PloneboardTestCase.PloneboardTestCase):
             self.forum.addConversation('Title %02s' % i)
         b = self.batch()
         self.assertEqual(b.previous, None)
-        self.assertNotEqual(b.next, None)
-        self.assertEqual(len(b.next), 2)
+        self.assertNotEqual(b.__next__, None)
+        self.assertEqual(len(b.__next__), 2)
     
     def testGetLastPage(self):
         for i in range(8):
             self.forum.addConversation('Title %02s' % i)
         b = self.batch(start=5)
         self.assertEqual(len(b), 3)
-        self.assertEqual(b.next, None)
+        self.assertEqual(b.__next__, None)
         self.assertNotEqual(b.previous, None)
         self.assertEqual(len(b.previous), 5)
         
@@ -93,9 +93,9 @@ class TestBatch(PloneboardTestCase.PloneboardTestCase):
             self.forum.addConversation('Title %02s' % i)
         b = self.batch(start=5)
         self.assertEqual(len(b), 5)
-        self.assertNotEqual(b.next, None)
+        self.assertNotEqual(b.__next__, None)
         self.assertNotEqual(b.previous, None)
-        self.assertEqual(len(b.next), 2)
+        self.assertEqual(len(b.__next__), 2)
         self.assertEqual(len(b.previous), 5)
         
 def test_suite():

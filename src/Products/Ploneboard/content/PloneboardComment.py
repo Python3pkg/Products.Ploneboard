@@ -71,7 +71,7 @@ schema = PBCommentBaseBTreeFolderSchema + Schema((
         languageIndependent=0,
         widget=AttachmentsManagerWidget(
             label=_("label_displayAttachments",
-                      default=u"Attachments"),
+                      default="Attachments"),
             expanded=True
         ),
     ),
@@ -82,7 +82,7 @@ schema = PBCommentBaseBTreeFolderSchema + Schema((
         languageIndependent=0,
         widget=ImagesManagerWidget(
             label=_("label_displayImages",
-                      default=u"Images"),
+                      default="Images"),
             expanded=True
         ),
     ),
@@ -237,7 +237,7 @@ class PloneboardComment(BaseBTreeFolder):
 
         ids.update({self.getId(): first_msg_id})
 
-        objects = map(parent.getComment, self.childIds())
+        objects = list(map(parent.getComment, self.childIds()))
         for obj in objects:
             replyId = obj.inReplyTo().getId()
             comment = conv.getComment(ids.get(replyId))
@@ -403,7 +403,7 @@ class PloneboardComment(BaseBTreeFolder):
         conversation._delObject(self.getId())
         conversation.reindexObject()
 
-    def __nonzero__(self):
+    def __bool__(self):
         return 1
 
     def __str__(self):

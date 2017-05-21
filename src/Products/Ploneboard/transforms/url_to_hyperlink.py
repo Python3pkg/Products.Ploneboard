@@ -67,8 +67,8 @@ class URLToHyperlink:
 
     def convert(self, orig, data, **kwargs):
         text = orig
-        if not isinstance(text, unicode):
-            text = unicode(text, 'utf-8', 'replace')
+        if not isinstance(text, str):
+            text = str(text, 'utf-8', 'replace')
         
         text = self.linkify(text)
     

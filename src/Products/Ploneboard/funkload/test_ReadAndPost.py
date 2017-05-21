@@ -3,7 +3,7 @@ import unittest
 from funkload.FunkLoadTestCase import FunkLoadTestCase
 from webunit.utility import Upload
 from funkload.utils import Data
-from StringIO import StringIO
+from io import StringIO
 from utils import getPostUrlFromForum, getReplyUrlFromConversation
 #from funkload.utils import xmlrpc_get_credential
 
